@@ -44,5 +44,37 @@ export default class Api {
             })
             .catch(err => Promise.reject(err))
     }
- 
+    setInfo({name, about}) {
+        return fetch(`${this._url}/users/me`, {
+            method: 'PATCH',
+            headers: this._headers,
+            body: JSON.stringify({
+                name: name,
+                about: about
+            })
+        })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(new Error(`Произошла ошибка со статус-кодом ${res.status}`))
+            })
+            .catch(err => Promise.reject(err))
+    }
+    setAvatar({avatar}) {
+        return fetch(`${this._url}/users/me/avatar`, {
+            method: 'PATCH',
+            headers: this._headers,
+            body: JSON.stringify({
+                avatar: avatar
+              })
+            })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(new Error(`Произошла ошибка со статус-кодом ${res.status}`))
+            })
+            .catch(err => Promise.reject(err))
+    }
 }

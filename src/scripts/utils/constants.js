@@ -2,7 +2,7 @@ export {
   initialCards, selectors, popupEdit, formElementEdit, nameInput, jobInput, openButtonEdit,
   titleName, descriptionName, popupAdd,
   formElementAdd, titleInput, urlInput, cardsList,
-  openButtonAdd, popupPreview, popupImage, popupCaption, EscCode
+  openButtonAdd, popupPreview, popupImage, popupCaption, EscCode, openButtonAvatar
 }
 
 const initialCards = [{
@@ -61,3 +61,4 @@ const popupPreview = document.querySelector('.overlay_type_preview');
 const popupImage = popupPreview.querySelector('.overlay__image');
 const popupCaption = popupPreview.querySelector('.overlay__caption');
 const EscCode = 27;
+const openButtonAvatar = document.querySelector('.profile__avatar-edit-button')
