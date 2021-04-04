@@ -6,6 +6,7 @@ import Section from '../scripts/components/Section.js';
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import UserInfo from '../scripts/components/UserInfo.js';
 import PopupWithImage from '../scripts/components/PopupWithImage.js';
+import PopupWithSubmit from '../scripts/components/PopupWithSubmit.js';
 import Api from '../scripts/components/Api.js'
 import {
   formElementEdit, openButtonEdit, formElementAdd, cardsList,
@@ -61,12 +62,23 @@ api.getInfo()
 .then(({name, about}) => {
   userInfo.setUserInfo({title: name, description: about})
 })
- 
+
 //edit form
 const popupEditForm = new PopupWithForm('.overlay_type_edit', 
   { 
-    handleFormSubmit: ({ title, description }) => { 
-      userInfo.setUserInfo({ title, description }); 
+    handleFormSubmit: ({ name, about }) => { 
+      popupEditForm.renderLoading(true)
+      api.setInfo({name, about})
+      .then(({name, about})=>{
+        userInfo.setUserInfo({title: name, description: about})
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        popupEditForm.renderLoading(false);
+        popupEditForm.close();
+      }) 
     } 
   }); 
  
@@ -76,10 +88,22 @@ popupEditForm.setEventListeners();
 const popupAvatar = new PopupWithForm ('.overlay_avatar', 
 {
   handleFormSubmit: ({avatar}) => {
-    userInfo.setUserAvatar({avatar})
-  }
+    popupAvatar.renderLoading(true);
+    api.setAvatar({avatar})
+    .then(({avatar}) => {
+      userInfo.setUserAvatar({avatar})
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      popupAvatar.renderLoading(false);
+      popupAvatar.close();
+    })
+}
 })
 popupAvatar.setEventListeners(); 
+
 //  попап превью картинки
 const popupWithImage = new PopupWithImage('.overlay_type_preview'); 
 popupWithImage.setEventListeners(); 
@@ -100,7 +124,7 @@ formAddValudator.disableSubmitButton()
 openButtonEdit.addEventListener('click', () => { 
   popupEditForm.open(userInfo.getUserInfo()); 
 }) 
-// обработчик кнопки редактиования аватара пользователя
+// обработчик кнопки редактирования аватара пользователя
 openButtonAvatar.addEventListener('click', () => {
   popupAvatar.open()
 })

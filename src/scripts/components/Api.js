@@ -1,3 +1,5 @@
+import { descriptionName } from "../utils/constants";
+
 export default class Api {
     constructor(options) {
         this._url = options.url;
@@ -77,4 +79,5 @@ export default class Api {
             })
             .catch(err => Promise.reject(err))
     }
+    
 }

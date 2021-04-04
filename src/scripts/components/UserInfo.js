@@ -12,19 +12,13 @@ export default class UserInfo {
         user.description = this._description.textContent; 
         return user; 
     }
+    setUserAvatar({avatar}) {
+        this._avatar.src = avatar;
+     }
     setUserInfo({ title, description }) { 
         this._title.textContent = title; 
         this._description.textContent = description; 
+        //this._setUserAvatar({avatar})
      } 
-     setUserAvatar({avatar}) {
-        this._api.setAvatar({avatar})
-         .then(({avatar}) => {
-            this._avatar.src = avatar;
-            this._avatar.alt = name;
-         })
-         .catch((err)=> {
-             console.log(err)
-         })
-       
       }
-}
+
