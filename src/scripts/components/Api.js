@@ -17,7 +17,7 @@ export default class Api {
             })
             .catch(err => Promise.reject(err))
     }
-    createCard({name, link}) {
+    createCard({caption: name, url: link}) {
         return fetch(`${this._url}/cards`, {
             method: 'POST',
             headers: this._headers,

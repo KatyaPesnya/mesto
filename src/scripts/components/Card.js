@@ -1,11 +1,13 @@
 
 export default class Card {
-  constructor(data, cardSelector, {handleCardClick}) {
+  constructor(data, cardSelector, {handleCardClick, handleLikeClick, handleDeleteIconClick}, api) {
     this._title = data.title;
     this._image = data.image;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
-    //this._api = api;
+    this._handleLikeClick = handleLikeClick;
+    this._handleDeleteIconClick = handleDeleteIconClick;
+    this._api = api;
   }
   _likeCard() {
     this._element.querySelector('.card__like').classList.toggle('card__like_active');

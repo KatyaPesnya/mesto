@@ -47,25 +47,33 @@ const popupAddForm = new PopupWithForm('.overlay_type_add',
   { 
     handleFormSubmit: ({caption, url}) => {  
       popupAddForm.renderLoading(true)
-      api.createCard({name: name, link: link})
-      .then(({caption: name, url: link})  =>{
-        
+      api.createCard({caption, url})
+      .then((res)  =>{
+        console.log(res)
+
+        const card = createCard({ 
+          title: caption, 
+          image: url 
+       });
+       cardList.prependItem(card) 
+        formAddValudator.disableSubmitButton() 
       })
-      const card = createCard({ 
-        title: caption, 
-        image: url 
-     });
-     cardList.prependItem(card) 
-      formAddValudator.disableSubmitButton() 
-    } 
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        popupAddForm.renderLoading(false);
+        popupAddForm.close()
+      })
+  } 
   }) 
  
   popupAddForm.setEventListeners() 
 
 // user info update
 api.getInfo()
-.then(({name, about}) => {
-  userInfo.setUserInfo({title: name, description: about})
+.then(({name, about, avatar}) => {
+  userInfo.setUserInfo({title: name, description: about, avatar: avatar})
 })
 
 //edit form
@@ -76,8 +84,8 @@ const popupEditForm = new PopupWithForm('.overlay_type_edit',
       popupEditForm.renderLoading(true)
       api.setInfo({ name: name,
         about: about})
-      .then(({ title: name,
-        description: about})=>{
+      .then(({ name : name,
+        about : about})=>{
         userInfo.setUserInfo({title: name, description: about})
       })
       .catch((err) => {
@@ -99,7 +107,7 @@ const popupAvatar = new PopupWithForm ('.overlay_avatar',
     popupAvatar.renderLoading(true);
     api.setAvatar({avatar})
  
-    .then(({avatar : avatar}) => { 
+    .then(({avatar}) => { 
       
       userInfo.setUserAvatar({avatar : avatar})
     })
