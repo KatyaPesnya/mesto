@@ -17,13 +17,13 @@ export default class Api {
             })
             .catch(err => Promise.reject(err))
     }
-    createCard(data) {
+    createCard({name, link}) {
         return fetch(`${this._url}/cards`, {
             method: 'POST',
             headers: this._headers,
             body: JSON.stringify({
-                name: data.name,
-                link: data.link
+                name: name,
+                link: link
             })
         })
             .then(res => {
@@ -79,5 +79,5 @@ export default class Api {
             })
             .catch(err => Promise.reject(err))
     }
-    
+
 }

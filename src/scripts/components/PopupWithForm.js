@@ -1,14 +1,14 @@
 import Popup from './Popup.js';
 
 export default class PopupWithForm extends Popup {
-    constructor(popupSelector, { handleFormSubmit }) {
+    constructor(popupSelector, { handleFormSubmit }, api) {
         super(popupSelector);
         this._submitButton = this._element.querySelector('.popup__button')
         this._handleFormSubmit = handleFormSubmit; 
         this._inputList = this._element.querySelectorAll('.popup__input');
         this._form =  this._element.querySelector('form');
         this._valueSubmitButton = this._submitButton.textContent;
-        //this.api = api;
+        this.api = api;
     }
    renderLoading(isLoading, message = 'Сохранение...') {
        if(isLoading) {

@@ -46,6 +46,11 @@ function createCard(item) {
 const popupAddForm = new PopupWithForm('.overlay_type_add', 
   { 
     handleFormSubmit: ({caption, url}) => {  
+      popupAddForm.renderLoading(true)
+      api.createCard({name: name, link: link})
+      .then(({caption: name, url: link})  =>{
+        
+      })
       const card = createCard({ 
         title: caption, 
         image: url 
@@ -66,10 +71,13 @@ api.getInfo()
 //edit form
 const popupEditForm = new PopupWithForm('.overlay_type_edit', 
   { 
-    handleFormSubmit: ({ name, about }) => { 
+    handleFormSubmit: ({ title: name,
+      description: about}) => { 
       popupEditForm.renderLoading(true)
-      api.setInfo({name, about})
-      .then(({name, about})=>{
+      api.setInfo({ name: name,
+        about: about})
+      .then(({ title: name,
+        description: about})=>{
         userInfo.setUserInfo({title: name, description: about})
       })
       .catch((err) => {
@@ -79,7 +87,7 @@ const popupEditForm = new PopupWithForm('.overlay_type_edit',
         popupEditForm.renderLoading(false);
         popupEditForm.close();
       }) 
-    } 
+    }, api 
   }); 
  
 popupEditForm.setEventListeners(); 
@@ -90,8 +98,10 @@ const popupAvatar = new PopupWithForm ('.overlay_avatar',
   handleFormSubmit: ({avatar}) => {
     popupAvatar.renderLoading(true);
     api.setAvatar({avatar})
-    .then(({avatar}) => {
-      userInfo.setUserAvatar({avatar})
+ 
+    .then(({avatar : avatar}) => { 
+      
+      userInfo.setUserAvatar({avatar : avatar})
     })
     .catch((err) => {
       console.log(err);
@@ -100,7 +110,7 @@ const popupAvatar = new PopupWithForm ('.overlay_avatar',
       popupAvatar.renderLoading(false);
       popupAvatar.close();
     })
-}
+},api
 })
 popupAvatar.setEventListeners(); 
 
