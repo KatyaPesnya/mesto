@@ -41,16 +41,16 @@ const selectors = {
 
 //1 попап имя ученого edit
 const popupEdit = '.overlay_type_edit';
-const formElementEdit = document.querySelector('.popup__container_type_edit');
+ const formElementEdit = document.querySelector('.popup__container_type_edit');
 const nameInput = formElementEdit.querySelector('[name="popup-name"]');
 const jobInput = formElementEdit.querySelector('[name="popup-job"]');
-const openButtonEdit = document.querySelector('.profile__popup-button');
+ const openButtonEdit = document.querySelector('.profile__popup-button');
 const titleName = '.profile__title';
 const descriptionName = '.profile__description';
 
 //2 попап добавление карточки add
 const popupAdd = document.querySelector('.overlay_type_add');
-const formElementAdd = document.querySelector('.popup__container_type_add');
+ const formElementAdd = document.querySelector('.popup__container_type_add');
 const titleInput = formElementAdd.querySelector('[name="caption"]');
 const urlInput = formElementAdd.querySelector('[name="url"]');
 const cardsList = '.cards__list';

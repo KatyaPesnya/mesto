@@ -9,10 +9,10 @@ import PopupWithImage from '../scripts/components/PopupWithImage.js';
 import PopupWithSubmit from '../scripts/components/PopupWithSubmit.js';
 import Api from '../scripts/components/Api.js'
 import {
-  formElementEdit, openButtonEdit, formElementAdd, cardsList,
-  openButtonAdd, selectors, openButtonAvatar
+  formElementEdit, formElementAdd, openButtonEdit, 
+  openButtonAdd, selectors,  cardsList,openButtonAvatar
 } from '../scripts/utils/constants.js';
-
+let ownerId = null
  const options = {
    url: 'https://mesto.nomoreparties.co/v1/cohort-21',
    headers: {
@@ -34,14 +34,28 @@ const cardList = new Section({
    
 // создание карточки
 function createCard(item) { 
-  const card = new Card(item, '.card-template', { 
+  const card = new Card(item, '.card-template', ownerId, { 
     handleCardClick: () => { 
       popupWithImage.open(item); 
-    } 
+    },
+     handleDeleteIconClick: () => {
+      popupWithSubmit.open();
+    }
   }); 
   return card.generateCard(); 
 } 
-
+//попап подтверждения удаления карточки 
+const popupWithSubmit = new PopupWithSubmit ('.overlay_delete-card',
+{ handleFormSubmit : ({_id}) => {
+  api.deleteCard({_id})
+  .then(() => {
+    popupWithSubmit.close();
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+}
+})
 // добавление карточки
 const popupAddForm = new PopupWithForm('.overlay_type_add', 
   { 

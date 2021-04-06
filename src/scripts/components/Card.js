@@ -1,6 +1,7 @@
+import { data } from "autoprefixer";
 
 export default class Card {
-  constructor(data, cardSelector, {handleCardClick, handleLikeClick, handleDeleteIconClick}, api) {
+  constructor(data, cardSelector , ownerId, {handleCardClick, handleLikeClick, handleDeleteIconClick}, api) {
     this._title = data.title;
     this._image = data.image;
     this._cardSelector = cardSelector;
@@ -8,14 +9,22 @@ export default class Card {
     this._handleLikeClick = handleLikeClick;
     this._handleDeleteIconClick = handleDeleteIconClick;
     this._api = api;
+    this._ownerId = ownerId
+
+   
   }
+ 
   _likeCard() {
     this._element.querySelector('.card__like').classList.toggle('card__like_active');
   }
-
-  _deleteCard() {
-    this._element.querySelector('.card__delete').closest('.card').remove();
+_checkDeleteCard () {
+  if(this._data.owner._id === this._ownerId){
+  this._deleteCard()
   }
+}
+  _deleteCard() {
+      this._element.querySelector('.card__delete').closest('.card').remove();
+    }
 
   _getTemplate() {
     const cardElement = document
@@ -34,12 +43,14 @@ export default class Card {
     titleElement.textContent = this._title;
     imageElement.src = this._image;
     imageElement.alt = this._title;
+    this._checkDeleteCard()
     return this._element;
+    
   }
 
   _setEventListeners() {
     this._element.querySelector('.card__delete').addEventListener('click', () => {
-      this._deleteCard()
+      this._handleDeleteIconClick()
     })
     this._element.querySelector('.card__like').addEventListener('click', () => {
       this._likeCard()
