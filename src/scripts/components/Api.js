@@ -34,7 +34,7 @@ export default class Api {
             })
             .catch(err => Promise.reject(err))
     }
-    deleteCard({_id}){
+    deleteCard({owner: {_id}}){
         return fetch(`${this._url}/cards/${_id}`,{
             method: 'DELETE',
             headers: this._headers,

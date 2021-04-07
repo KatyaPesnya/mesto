@@ -15,8 +15,8 @@ export default class Section {
     _loadCards() {
      this._api.getCards()
      .then(resp => { 
-         resp.forEach(({name, link}) => {
-             this._renderer({title: name, image: link})
+         resp.forEach(({name, link, owner, likes}  ) => {
+             this._renderer({title: name, image: link, owner: owner, likes: likes})
              
          });
      })

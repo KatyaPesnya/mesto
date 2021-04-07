@@ -12,7 +12,6 @@ import {
   formElementEdit, formElementAdd, openButtonEdit, 
   openButtonAdd, selectors,  cardsList,openButtonAvatar
 } from '../scripts/utils/constants.js';
-let ownerId = null
  const options = {
    url: 'https://mesto.nomoreparties.co/v1/cohort-21',
    headers: {
@@ -34,7 +33,8 @@ const cardList = new Section({
    
 // создание карточки
 function createCard(item) { 
-  const card = new Card(item, '.card-template', ownerId, { 
+ 
+  const card = new Card(item, '.card-template', {owner:{_id}}, { 
     handleCardClick: () => { 
       popupWithImage.open(item); 
     },
@@ -46,8 +46,11 @@ function createCard(item) {
 } 
 //попап подтверждения удаления карточки 
 const popupWithSubmit = new PopupWithSubmit ('.overlay_delete-card',
-{ handleFormSubmit : ({_id}) => {
-  api.deleteCard({_id})
+{ handleFormSubmit : ({owner:{_id}}) => {
+  api.deleteCard({owner:{_id}})
+  .then(() => {
+    card._deleteCard({owner:{_id}});
+  })
   .then(() => {
     popupWithSubmit.close();
   })
@@ -56,14 +59,15 @@ const popupWithSubmit = new PopupWithSubmit ('.overlay_delete-card',
   })
 }
 })
+popupWithSubmit.setEventListeners() 
 // добавление карточки
 const popupAddForm = new PopupWithForm('.overlay_type_add', 
   { 
     handleFormSubmit: ({caption, url}) => {  
       popupAddForm.renderLoading(true)
       api.createCard({caption, url})
-      .then((res)  =>{
-        console.log(res)
+      .then((resp)  =>{
+        console.log(resp)
 
         const card = createCard({ 
           title: caption, 
@@ -79,7 +83,7 @@ const popupAddForm = new PopupWithForm('.overlay_type_add',
         popupAddForm.renderLoading(false);
         popupAddForm.close()
       })
-  } 
+  } , api
   }) 
  
   popupAddForm.setEventListeners() 

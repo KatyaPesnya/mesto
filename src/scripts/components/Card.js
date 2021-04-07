@@ -1,7 +1,6 @@
-import { data } from "autoprefixer";
 
 export default class Card {
-  constructor(data, cardSelector , ownerId, {handleCardClick, handleLikeClick, handleDeleteIconClick}, api) {
+  constructor(data, cardSelector , _id,  {handleCardClick, handleLikeClick, handleDeleteIconClick}, api) {
     this._title = data.title;
     this._image = data.image;
     this._cardSelector = cardSelector;
@@ -9,16 +8,15 @@ export default class Card {
     this._handleLikeClick = handleLikeClick;
     this._handleDeleteIconClick = handleDeleteIconClick;
     this._api = api;
-    this._ownerId = ownerId
-
-   
+    this._id = `${this._owner}`; 
   }
  
   _likeCard() {
     this._element.querySelector('.card__like').classList.toggle('card__like_active');
   }
 _checkDeleteCard () {
-  if(this._data.owner._id === this._ownerId){
+  console.log(this._id)
+  if(this._id === this._id){
   this._deleteCard()
   }
 }
@@ -38,12 +36,12 @@ _checkDeleteCard () {
   generateCard() {
     this._element = this._getTemplate();
     this._setEventListeners()
+    this._checkDeleteCard()
     const titleElement = this._element.querySelector('.card__title');
     const imageElement = this._element.querySelector('.card__image');
     titleElement.textContent = this._title;
     imageElement.src = this._image;
     imageElement.alt = this._title;
-    this._checkDeleteCard()
     return this._element;
     
   }
