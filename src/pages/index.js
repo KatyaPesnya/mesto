@@ -9,8 +9,9 @@ import PopupWithImage from '../scripts/components/PopupWithImage.js';
 import PopupWithSubmit from '../scripts/components/PopupWithSubmit.js';
 import Api from '../scripts/components/Api.js'
 import {
-  formElementEdit, formElementAdd, openButtonEdit, 
-  openButtonAdd, selectors,  cardsList,openButtonAvatar
+  formElementEdit, formElementAdd,
+  openButtonEdit,
+  openButtonAdd, selectors, cardsList, openButtonAvatar
 } from '../scripts/utils/constants.js';
  const options = {
    url: 'https://mesto.nomoreparties.co/v1/cohort-21',
