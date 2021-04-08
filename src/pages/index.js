@@ -40,7 +40,7 @@ function createCard(item) {
     },
      handleDeleteIconClick: () => {
       popupWithSubmit.open();
-    }
+    }, api
   }); 
   return card.generateCard(); 
 } 
@@ -63,15 +63,16 @@ popupWithSubmit.setEventListeners()
 // добавление карточки
 const popupAddForm = new PopupWithForm('.overlay_type_add', 
   { 
-    handleFormSubmit: ({caption, url}) => {  
+    handleFormSubmit: ({caption, url}) => {
       popupAddForm.renderLoading(true)
-      api.createCard({caption, url})
+      api.createCard({caption, url })
       .then((resp)  =>{
         console.log(resp)
 
         const card = createCard({ 
-          title: caption, 
-          image: url 
+          title: name,
+          image: link ,
+          owner: owner
        });
        cardList.prependItem(card) 
         formAddValudator.disableSubmitButton() 

@@ -1,12 +1,12 @@
 
 export default class Card {
-  constructor(data, cardSelector , _id,  {handleCardClick, handleLikeClick, handleDeleteIconClick}, api) {
+  constructor(data, cardSelector, _id, handleCardClick, api) {
     this._title = data.title;
     this._image = data.image;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
-    this._handleLikeClick = handleLikeClick;
-    this._handleDeleteIconClick = handleDeleteIconClick;
+    // this._handleLikeClick = handleLikeClick;
+    // this._handleDeleteIconClick = handleDeleteIconClick;
     this._api = api;
     this._id = _id;
   }
