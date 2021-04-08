@@ -66,12 +66,10 @@ const popupAddForm = new PopupWithForm('.overlay_type_add',
     handleFormSubmit: ({caption, url}) => {
       popupAddForm.renderLoading(true)
       api.createCard({caption, url })
-      .then((resp)  =>{
-        console.log(resp)
-
+      .then(({name, link, owner})  =>{
         const card = createCard({ 
           title: name,
-          image: link ,
+          image: link,
           owner: owner
        });
        cardList.prependItem(card) 
