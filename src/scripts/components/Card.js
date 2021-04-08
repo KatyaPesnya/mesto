@@ -8,7 +8,7 @@ export default class Card {
     this._handleLikeClick = handleLikeClick;
     this._handleDeleteIconClick = handleDeleteIconClick;
     this._api = api;
-    this._id = `${this._owner}`; 
+    this._id = _id;
   }
  
   _likeCard() {

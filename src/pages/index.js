@@ -34,7 +34,7 @@ const cardList = new Section({
 // создание карточки
 function createCard(item) { 
  
-  const card = new Card(item, '.card-template', {owner:{_id}}, { 
+  const card = new Card(item, '.card-template', item.owner._id, {
     handleCardClick: () => { 
       popupWithImage.open(item); 
     },
