@@ -52,7 +52,7 @@ const popupWithSubmit = new PopupWithSubmit('.overlay_delete-card',
         handleFormSubmit: ({owner: {_id}}) => {
             api.deleteCard({owner: {_id}})
                 .then(() => {
-                    card._deleteCard({owner: {_id}});
+                  //._deleteCard({owner: {_id}});
                 })
                 .then(() => {
                     popupWithSubmit.close();
