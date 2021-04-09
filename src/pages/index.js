@@ -39,7 +39,7 @@ function createCard(item) {
         handleCardClick: () => {
             popupWithImage.open(item);
         },
-        handleDeleteIconClick: () => {
+    handleDeleteIconClick: () => {
             popupWithSubmit.open();
         }, api
     });
