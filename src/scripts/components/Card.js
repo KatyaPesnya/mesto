@@ -23,7 +23,9 @@ export default class Card {
       this._deleteCard()
     }
   }
-
+deleteElementCard(){
+    this._element.remove()
+}
   _deleteCard() {
     this._element.querySelector('.card__delete').remove();
   }

@@ -40,7 +40,7 @@ function createCard(item) {
             popupWithImage.open(item);
         },
         handleDeleteIconClick: () => {
-            popupWithSubmit.open(item);
+            popupWithSubmit.open();
         }, api
     });
     return card.generateCard();
@@ -50,11 +50,14 @@ function createCard(item) {
 const popupWithSubmit = new PopupWithSubmit('.overlay_delete-card',
     {
         handleFormSubmit: ({owner: {_id}}) => {
+
             api.deleteCard({owner: {_id}})
                 .then(() => {
-                  //._deleteCard({owner: {_id}});
+                    debugger
+
+                    createCard().deleteElementCard()
                 })
-                .then(() => {
+                .then(({owner: {_id}}) => {
                     popupWithSubmit.close();
                 })
                 .catch((err) => {
@@ -173,3 +176,4 @@ openButtonEdit.addEventListener('click', () => {
 openButtonAvatar.addEventListener('click', () => {
     popupAvatar.open()
 })
+

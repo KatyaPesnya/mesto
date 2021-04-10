@@ -5,7 +5,7 @@ export default class PopupWithSubmit extends Popup {
         this._form = document.querySelector('form');
         this._handleFormSubmit =  handleFormSubmit;
         this._submitEvtHandler = this._submitEvtHandler.bind(this);
-this._api = api
+        this._api = api
     }
     _submitEvtHandler(evt) {
         evt.preventDefault();
@@ -15,5 +15,6 @@ this._api = api
     setEventListeners() {
         this._form.addEventListener('submit', this._submitEvtHandler);
         super.setEventListeners();
+
       }
 }
