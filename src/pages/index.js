@@ -35,7 +35,7 @@ const cardList = new Section({
 // создание карточки
 function createCard(item) {
 
-    const card = new Card(item, '.card-template', item.owner._id, {
+    const card = new Card(item, '.card-template', item._id, {
         handleCardClick: () => {
             popupWithImage.open(item);
         },
@@ -69,11 +69,12 @@ const popupAddForm = new PopupWithForm('.overlay_type_add',
         handleFormSubmit: ({caption, url}) => {
             popupAddForm.renderLoading(true)
             api.createCard({caption, url})
-                .then(({name, link, owner}) => {
+                .then(({name, link, owner, _id}) => {
                     const card = createCard({
                         title: name,
                         image: link,
-                        owner: owner
+                        owner: owner,
+                        id:_id
                     });
                     cardList.prependItem(card)
                     formAddValidator.disableSubmitButton()

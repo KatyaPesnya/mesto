@@ -17,4 +17,4 @@ const openButtonAdd = document.querySelector('.profile__add-button');
 const openButtonAvatar = document.querySelector('.profile__avatar-edit-button')
 const cardsList = '.cards__list';
 const EscCode = 27;
-const ownerId = null
+const ownerId = 'b85d15c1fb17e9bebf8e8af5';

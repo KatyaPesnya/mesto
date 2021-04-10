@@ -1,6 +1,6 @@
-
+import {ownerId} from '../utils/constants'
 export default class Card {
-  constructor(data, cardSelector, _id, handleCardClick, handleDeleteIconClick , api) {
+  constructor(data, cardSelector, handleCardClick, handleDeleteIconClick , api) {
     this._title = data.title;
     this._image = data.image;
     this._cardSelector = cardSelector;
@@ -8,20 +8,21 @@ export default class Card {
     // this._handleLikeClick = handleLikeClick;
      this._handleDeleteIconClick = handleDeleteIconClick;
     this._api = api;
-    this._id = _id;
+    this._id = data._id;
+    this.ownerId = data.owner._id
   }
  
   _likeCard() {
     this._element.querySelector('.card__like').classList.toggle('card__like_active');
   }
 _checkDeleteCard () {
-  console.log(this._id)
-  if(this._id === this._id){
-  this._deleteCard()
+
+  if(this.ownerId !== ownerId){
+    this._deleteCard()
   }
 }
   _deleteCard() {
-      this._element.querySelector('.card__delete').closest('.card').remove();
+      this._element.querySelector('.card__delete').remove();
     }
 
   _getTemplate() {
