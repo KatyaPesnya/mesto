@@ -35,12 +35,12 @@ const cardList = new Section({
 // создание карточки
 function createCard(item) {
 
-    const card = new Card(item, '.card-template', item._id, {
+    const card = new Card(item, '.card-template', {
         handleCardClick: () => {
             popupWithImage.open(item);
         },
-    handleDeleteIconClick: () => {
-            popupWithSubmit.open();
+        handleDeleteIconClick: () => {
+            popupWithSubmit.open(item);
         }, api
     });
     return card.generateCard();
