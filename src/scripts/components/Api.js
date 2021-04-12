@@ -34,8 +34,8 @@ export default class Api {
             })
             .catch(err => Promise.reject(err))
     }
-    deleteCard({_id}){
-        return fetch(`${this._url}/cards/${_id}`,{
+    deleteCard(id){
+        return fetch(`${this._url}/cards/${id}`,{
             method: 'DELETE',
             headers: this._headers,
         })
@@ -94,8 +94,8 @@ export default class Api {
             .catch(err => Promise.reject(err))
     }
 
-    setLike({_id}) {
-        return fetch(`${this._url}/cards/likes/${_id}`, {
+    setLike(id) {
+        return fetch(`${this._url}/cards/likes/${id}`, {
             method: 'PUT',
             headers: this._headers,
         })
@@ -107,8 +107,8 @@ export default class Api {
             })
             .catch(err => Promise.reject(err))
     }
-    deleteLike({_id}) {
-        return fetch(`${this._url}/cards/likes/${_id}`, {
+    deleteLike(id) {
+        return fetch(`${this._url}/cards/likes/${id}`, {
             method: 'DELETE',
             headers: this._headers,
         })

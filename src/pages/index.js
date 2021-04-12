@@ -41,7 +41,7 @@ function createCard(item) {
         },
         handleDeleteCard: (param) => {
             popupWithSubmit.setSubmit(() => {
-                api.deleteCard(item._id)
+                api.deleteCard(item.id)
                     .then(({_id})=>{
                        param.deleteElementCard()
                         popupWithSubmit.close();
@@ -53,7 +53,7 @@ function createCard(item) {
             popupWithSubmit.open();
         },
         handleLikeClick: () => {
-            api.setLike(item._id)
+            api.setLike(item.id)
                 .then(({_id}) => {
                     card.setLikeCount();
                 })
@@ -62,7 +62,7 @@ function createCard(item) {
                 })
         },
         handleDeleteLikeClick: () => {
-        api.deleteLike(item._id)
+        api.deleteLike(item.id)
             .then(({_id}) => {
                 card.setLikeCount();
             })
