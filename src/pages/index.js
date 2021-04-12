@@ -54,8 +54,9 @@ function createCard(item) {
         },
         handleLikeClick: () => {
             api.setLike(item.id)
-                .then(({_id}) => {
-                    card.setLikeCount();
+                .then(({likes}) => {
+                    card.setLikeCount(item.likes.length = likes.length );
+
                 })
                 .catch((err) => {
                     console.log(err);
@@ -63,8 +64,9 @@ function createCard(item) {
         },
         handleDeleteLikeClick: () => {
         api.deleteLike(item.id)
-            .then(({_id}) => {
-                card.setLikeCount();
+            .then(({likes}) => {
+                card.setLikeCount(item.likes.length = likes.length );
+
             })
             .catch((err) => {
                 console.log(err);

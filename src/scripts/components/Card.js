@@ -15,10 +15,6 @@ export default class Card {
     this.deleteElementCard = this.deleteElementCard.bind(this)
   }
 
-  // _likeCard() {
-  //   this._element.querySelector('.card__like')
-  //       .classList.toggle('card__like_active');
-  // }
   _removeLikedClass() {
     this._element.querySelector('.card__like').classList.remove('card__like_active');
   }
@@ -27,8 +23,8 @@ export default class Card {
     this._element.querySelector('.card__like').classList.add('card__like_active');
   }
   setLikeCount() {
-    this._element.querySelector('.card__like-count').textContent = String(this._likes.length);
-  }
+    this._element.querySelector('.card__like-count').textContent = String(this._likes.length)
+   }
   _dislike() {
     this._removeLikedClass();
     this._handleDeleteLikeClick(this._likes);
@@ -36,11 +32,11 @@ export default class Card {
 
   _like() {
     this._addLikedClass();
-    this._handleCardClick(this._likes);
+    this._handleLikeClick(this._likes);
   }
   _checkLiked() {
     this._likes.forEach((like) => {
-      if (like._id === this.ownerId) {
+      if (like._id === ownerId) {
         this._addLikedClass();
       }
     })
@@ -93,9 +89,6 @@ export default class Card {
         this._like();
       }
     })
-    // this._element.querySelector('.card__like').addEventListener('click', () => {
-    //   this._likeCard()
-    // })
     this._element.querySelector('.card__image').addEventListener('click', () =>{
       this._handleCardClick()
     })
