@@ -34,7 +34,7 @@ export default class Api {
             })
             .catch(err => Promise.reject(err))
     }
-    deleteCard({owner: {_id}}){
+    deleteCard({_id}){
         return fetch(`${this._url}/cards/${_id}`,{
             method: 'DELETE',
             headers: this._headers,
@@ -94,5 +94,29 @@ export default class Api {
             .catch(err => Promise.reject(err))
     }
 
-
+    setLike({_id}) {
+        return fetch(`${this._url}/cards/likes/${_id}`, {
+            method: 'PUT',
+            headers: this._headers,
+        })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(new Error(`Произошла ошибка со статус-кодом ${res.status}`))
+            })
+            .catch(err => Promise.reject(err))
+    }
+    deleteLike({_id}) {
+        return fetch(`${this._url}/cards/likes/${_id}`, {
+            method: 'DELETE',
+            headers: this._headers,
+        })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(new Error(`Произошла ошибка со статус-кодом ${res.status}`))
+            })
+    }
 }
