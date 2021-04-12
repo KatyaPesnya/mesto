@@ -35,11 +35,21 @@ const cardList = new Section({
 // создание карточки
 function createCard(item) {
 
-    const card = new Card(item, '.card-template', {
+    const card = new Card(item, '.card-template',{
         handleCardClick: () => {
             popupWithImage.open(item);
         },
-        handleDeleteIconClick: () => {
+        handleDeleteCard: (param) => {
+            popupWithSubmit.setSubmit(() => {
+                api.deleteCard(item._id)
+                    .then(()=>{
+                       param.deleteElementCard()
+                        popupWithSubmit.close();
+                    })
+                    .catch((err) =>{
+                        console.log(err)
+                        })
+            })
             popupWithSubmit.open();
         }, api
     });
@@ -47,20 +57,20 @@ function createCard(item) {
 }
 
 //попап подтверждения удаления карточки 
-const popupWithSubmit = new PopupWithSubmit('.overlay_delete-card',
-    {
-        handleFormSubmit: ({owner: {_id}}) => {
-
-            api.deleteCard({owner: {_id}})
-                .then(({owner: {_id}}) => {
-                    createCard().deleteElementCard()
-                })
-
-                .catch((err) => {
-                    console.log(err);
-                })
-        }
-    })
+const popupWithSubmit = new PopupWithSubmit('.overlay_delete-card')
+    // {
+    //     handleFormSubmit: ({owner: {_id}}) => {
+    //
+    //         api.deleteCard({owner: {_id}})
+    //             .then(({owner: {_id}}) => {
+    //                 createCard().deleteElementCard()
+    //             })
+    //
+    //             .catch((err) => {
+    //                 console.log(err);
+    //             })
+    //     }
+    // })
 popupWithSubmit.setEventListeners()
 // добавление карточки
 const popupAddForm = new PopupWithForm('.overlay_type_add',

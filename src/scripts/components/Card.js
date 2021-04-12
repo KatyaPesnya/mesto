@@ -1,6 +1,6 @@
 import {ownerId} from '../utils/constants'
 export default class Card {
-  constructor(data, cardSelector, {handleCardClick, handleDeleteIconClick}, api) {
+  constructor(data, cardSelector, {handleCardClick, handleDeleteCard}, api) {
     this._title = data.title;
     this._image = data.image;
     this._id = data._id;
@@ -8,9 +8,9 @@ export default class Card {
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
     // this._handleLikeClick = handleLikeClick;
-    this._handleDeleteIconClick = handleDeleteIconClick;
+    this._handleDeleteCard = handleDeleteCard;
     this._api = api;
-
+this.deleteElementCard = this.deleteElementCard.bind(this)
   }
 
   _likeCard() {
@@ -24,7 +24,8 @@ export default class Card {
     }
   }
 deleteElementCard(){
-    this._element.remove()
+  this._element.remove()
+
 }
   _deleteCard() {
     this._element.querySelector('.card__delete').remove();
@@ -34,12 +35,10 @@ deleteElementCard(){
     const cardElement = document
         .querySelector(this._cardSelector)
         .content
-        .querySelector('.card')
-        .cloneNode(true)
-
+        .firstElementChild
+        .cloneNode(true);
     return cardElement;
   }
-
   generateCard() {
     this._element = this._getTemplate();
     this._setEventListeners()
@@ -55,7 +54,7 @@ deleteElementCard(){
 
   _setEventListeners() {
     this._element.querySelector('.card__delete').addEventListener('click', () => {
-      this._handleDeleteIconClick()
+      this._handleDeleteCard(this)
     })
 
     this._element.querySelector('.card__like').addEventListener('click', () => {
