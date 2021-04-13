@@ -85,12 +85,13 @@ const popupAddForm = new PopupWithForm('.overlay_type_add',
         handleFormSubmit: ({caption, url}) => {
             popupAddForm.renderLoading(true)
             api.createCard({caption, url})
-                .then(({name, link, owner, _id}) => {
+                .then(({name, link, owner, _id, likes}) => {
                     const card = createCard({
                         title: name,
                         image: link,
                         owner: owner,
-                        id:_id
+                        id:_id,
+                        likes: likes
                     });
                     cardList.prependItem(card)
                     formAddValidator.disableSubmitButton()
@@ -127,9 +128,10 @@ const popupEditForm = new PopupWithForm('.overlay_type_edit',
             })
                 .then(({
                            name: name,
-                           about: about
+                           about: about,
+                           avatar: avatar
                        }) => {
-                    userInfo.setUserInfo({title: name, description: about})
+                    userInfo.setUserInfo({title: name, description: about, avatar: avatar})
                 })
                 .catch((err) => {
                     console.log(err);
@@ -149,7 +151,6 @@ const popupAvatar = new PopupWithForm('.overlay_avatar',
         handleFormSubmit: ({avatar}) => {
             popupAvatar.renderLoading(true);
             api.setAvatar({avatar})
-
                 .then(({avatar}) => {
 
                     userInfo.setUserAvatar({avatar: avatar})

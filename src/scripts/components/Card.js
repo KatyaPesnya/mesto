@@ -24,6 +24,7 @@ export default class Card {
   }
   setLikeCount() {
     this._element.querySelector('.card__like-count').textContent = String(this._likes.length)
+
    }
   _dislike() {
     this._removeLikedClass();
