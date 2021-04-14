@@ -1,6 +1,6 @@
 .profile {
   box-sizing: border-box;
-  padding: 38.25px 19px 36px 19px;
+  padding: 38px 19px 36px 19px;
   display: grid;
   align-items: center;
   position: relative;
@@ -9,7 +9,8 @@
 @media (min-width: 768px) {
   .profile {
     padding: 36.25px 0 27px 0;
-    grid-template-columns: 130px 300px 200px;
+    grid-template-columns:130px 300px 200px;
+
   }
 }
 @media (min-width: 1024px) {

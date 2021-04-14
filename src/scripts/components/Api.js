@@ -1,21 +1,19 @@
-import { descriptionName } from "../utils/constants";
 
 export default class Api {
     constructor(options) {
         this._url = options.url;
         this._headers = options.headers;
     }
-
+    _checkResponse(res) {
+        if (res.ok) {
+            return res.json();
+        }
+        return Promise.reject(`Ошибка ${res.status}`);
+    }
     getCards() {
         return fetch(`${this._url}/cards`, {
              headers: this._headers })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(new Error(`Произошла ошибка со статус-кодом ${res.status}`))
-            })
-            .catch(err => Promise.reject(err))
+            .then(this._checkResponse)
     }
     createCard({caption: name, url: link}) {
         return fetch(`${this._url}/cards`, {
@@ -26,39 +24,21 @@ export default class Api {
                 link: link
             })
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(new Error(`Произошла ошибка со статус-кодом ${res.status}`))
-            })
-            .catch(err => Promise.reject(err))
+            .then(this._checkResponse)
     }
-    deleteCard(id){
-        return fetch(`${this._url}/cards/${id}`,{
+    deleteCard(id) {
+        return fetch(`${this._url}/cards/${id}`, {
             method: 'DELETE',
             headers: this._headers,
         })
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(new Error(`Произошла ошибка со статус-кодом ${res.status}`))
-        })
-        .catch(err => Promise.reject(err))
+            .then(this._checkResponse)
     }
 
     getInfo() {
         return fetch(`${this._url}/users/me`, {
             headers: this._headers,
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(new Error(`Произошла ошибка со статус-кодом ${res.status}`))
-            })
-            .catch(err => Promise.reject(err))
+            .then(this._checkResponse)
     }
     setInfo({name, about}) {
         return fetch(`${this._url}/users/me`, {
@@ -69,13 +49,7 @@ export default class Api {
                 about: about
             })
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(new Error(`Произошла ошибка со статус-кодом ${res.status}`))
-            })
-            .catch(err => Promise.reject(err))
+            .then(this._checkResponse)
     }
     setAvatar({avatar}) {
         return fetch(`${this._url}/users/me/avatar`, {
@@ -85,13 +59,7 @@ export default class Api {
                 avatar: avatar
               })
             })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(new Error(`Произошла ошибка со статус-кодом ${res.status}`))
-            })
-            .catch(err => Promise.reject(err))
+            .then(this._checkResponse)
     }
 
     setLike(id) {
@@ -99,24 +67,13 @@ export default class Api {
             method: 'PUT',
             headers: this._headers,
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(new Error(`Произошла ошибка со статус-кодом ${res.status}`))
-            })
-            .catch(err => Promise.reject(err))
+            .then(this._checkResponse)
     }
     deleteLike(id) {
         return fetch(`${this._url}/cards/likes/${id}`, {
             method: 'DELETE',
             headers: this._headers,
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(new Error(`Произошла ошибка со статус-кодом ${res.status}`))
-            })
+            .then(this._checkResponse)
     }
 }

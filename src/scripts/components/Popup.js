@@ -1,8 +1,9 @@
-import { EscCode } from '../utils/constants.js';
+
 export default class Popup {
     constructor(popupSelector) {
         this._element = document.querySelector(popupSelector);
         this._handleEscClose = this._handleEscClose.bind(this)
+        this._EscCode = 27
     }
     open() {
         this._element.classList.add('overlay_opened')
@@ -14,7 +15,7 @@ export default class Popup {
         document.removeEventListener('keydown', this._handleEscClose)
     }
     _handleEscClose(evt) {
-        if (evt.keyCode === EscCode) {
+        if (evt.keyCode === this._EscCode) {
             this.close();
         }
     }

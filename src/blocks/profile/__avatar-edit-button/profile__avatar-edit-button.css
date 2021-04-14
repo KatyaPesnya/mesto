@@ -11,15 +11,14 @@
     cursor: pointer;
     transition: background-color .2s ease;
   }
-  
+
   .profile__avatar-edit-button:hover,
   .profile__avatar-edit-button:focus {
     background-image: url('../../../images/Avatar.svg');
     background-position: center;
     background-repeat: no-repeat;
     background-color: rgba(0,0,0,.8);
-   
-  } 
+  }
  
  
   

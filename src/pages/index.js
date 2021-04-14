@@ -131,7 +131,7 @@ const popupEditForm = new PopupWithForm('.overlay_type_edit',
                            about: about,
                            avatar: avatar
                        }) => {
-                    userInfo.setUserInfo({title: name, description: about, avatar: avatar})
+                    userInfo.setUserInfo({title: name, description: about, avatar:avatar})
                 })
                 .catch((err) => {
                     console.log(err);
