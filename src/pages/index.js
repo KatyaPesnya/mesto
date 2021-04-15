@@ -25,11 +25,12 @@ const api = new Api(options)
 const userInfo = new UserInfo('.profile__title', '.profile__description', '.profile__avatar', api)
 const cardList = new Section({
         renderer: (item) => {
-            cardList.addItem(createCard(item))
+            const card = createCard(item)
+            const cardElement = card.generateCard()
+            cardList.addItem(cardElement)
         }
     }, cardsList,
     api)
-
 // создание карточки
 function createCard(item) {
     const card = new Card(item, '.card-template', {
@@ -53,7 +54,6 @@ function createCard(item) {
             api.setLike(item.id)
                 .then(({likes}) => {
                     card.setLikeCount(item.likes.length = likes.length);
-
                 })
                 .catch((err) => {
                     console.log(err);
@@ -63,55 +63,23 @@ function createCard(item) {
             api.deleteLike(item.id)
                 .then(({likes}) => {
                     card.setLikeCount(item.likes.length = likes.length);
-
                 })
                 .catch((err) => {
                     console.log(err);
                 })
         }, api
     });
-    return card.generateCard();
+    return card;
 }
     api.getData()
         .then(([userData, cardsData])  => {
             ownerId = userData._id;
             userInfo.setUserInfo(userData);
-            cardList.renderCards(createCard(cardsData));
+            cardList.renderCards(cardsData);
         })
         .catch((err) => {
             console.log(err);
         })
-
-//список карточек
-// const cardList = new Section({
-//     renderer: (item) => {
-//         cardList.addItem(createCard(item))
-//     }
-//}, cardsList, api)
-//
-// user info update
-
-// api.getInfo()
-//     .then(({name, about, avatar}) => {
-//         userInfo.setUserInfo({title: name, description: about, avatar: avatar})
-    // })
-// user info update
-
-//
-// api.getInfo()
-//     .then(({name, about, avatar}) => {
-//         userInfo.setUserInfo({title: name, description: about, avatar: avatar})
-//     })
-// _loadCards() {
-//     this._api.getCards()
-//         .then(resp => {
-//             resp.forEach(({name, link, owner, likes, _id}  ) => {
-//                 this._renderer({title: name, image: link, owner: owner, likes: likes, id:_id})
-//
-//             });
-
-
-
 
 //попап подтверждения удаления карточки
 const popupWithSubmit = new PopupWithSubmit('.overlay_delete-card')
@@ -130,7 +98,9 @@ const popupAddForm = new PopupWithForm('.overlay_type_add',
                         id:_id,
                         likes: likes
                     });
-                    cardList.prependItem(card)
+
+                    const cardElement = card.generateCard();
+                    cardList.prependItem(cardElement)
                     formAddValidator.disableSubmitButton()
                     popupAddForm.close()
                 })
