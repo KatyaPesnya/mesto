@@ -10,6 +10,9 @@ export default class Api {
         }
         return Promise.reject(`Ошибка ${res.status}`);
     }
+    getData() {
+        return Promise.all([this.getInfo(), this.getCards()]);
+    }
     getCards() {
         return fetch(`${this._url}/cards`, {
              headers: this._headers })

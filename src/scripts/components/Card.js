@@ -1,4 +1,4 @@
-import {ownerId} from '../utils/constants'
+//import {ownerId} from '../utils/constants'
 export default class Card {
   constructor(data, cardSelector, {handleCardClick, handleDeleteCard, handleLikeClick,handleDeleteLikeClick }, api) {
     this._title = data.title;
@@ -37,13 +37,13 @@ export default class Card {
   }
   _checkLiked() {
     this._likes.forEach((like) => {
-      if (like._id === ownerId) {
+      if (like._id === this.ownerId) {
         this._addLikedClass();
       }
     })
   }
   _checkDeleteCard() {
-    if (this.ownerId !== ownerId) {
+    if (this.ownerId !== this.ownerId) {
       this._deleteCard()
     }
   }

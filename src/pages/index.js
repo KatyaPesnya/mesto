@@ -10,7 +10,7 @@ import PopupWithSubmit from '../scripts/components/PopupWithSubmit.js';
 import Api from '../scripts/components/Api.js'
 import {
     formElementEdit, formElementAdd, openButtonEdit,
-    openButtonAdd, selectors, cardsList, openButtonAvatar
+    openButtonAdd, selectors, cardsList, openButtonAvatar, ownerId
 } from '../scripts/utils/constants.js';
 
 const options = {
@@ -26,12 +26,41 @@ const api = new Api(options)
 const userInfo = new UserInfo('.profile__title', '.profile__description', '.profile__avatar', api)
 
 //список карточек
-const cardList = new Section({
-    renderer: (item) => {
-        cardList.addItem(createCard(item))
-    }
-}, cardsList, api)
+// const cardList = new Section({
+//     renderer: (item) => {
+//         cardList.addItem(createCard(item))
+//     }
+//}, cardsList, api)
+//
+// user info update
 
+// api.getInfo()
+//     .then(({name, about, avatar}) => {
+//         userInfo.setUserInfo({title: name, description: about, avatar: avatar})
+    // })
+// user info update
+api.getData()
+    .then((data)   => {
+const [userData, cardsData] = data;
+    ownerId = userData._id;
+        userInfo.setUserInfo(userData);
+        cardsList.renderItems(cardsData);
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+//
+// api.getInfo()
+//     .then(({name, about, avatar}) => {
+//         userInfo.setUserInfo({title: name, description: about, avatar: avatar})
+//     })
+// _loadCards() {
+//     this._api.getCards()
+//         .then(resp => {
+//             resp.forEach(({name, link, owner, likes, _id}  ) => {
+//                 this._renderer({title: name, image: link, owner: owner, likes: likes, id:_id})
+//
+//             });
 // создание карточки
 function createCard(item) {
 
@@ -75,8 +104,16 @@ function createCard(item) {
     });
     return card.generateCard();
 }
+const cardList = new Section({
 
-//попап подтверждения удаления карточки 
+    renderer: (item) => {
+                    cardList.addItem(createCard(item))
+                }
+            }, cardsList,
+    api)
+
+
+//попап подтверждения удаления карточки
 const popupWithSubmit = new PopupWithSubmit('.overlay_delete-card')
 popupWithSubmit.setEventListeners()
 // добавление карточки
@@ -95,24 +132,18 @@ const popupAddForm = new PopupWithForm('.overlay_type_add',
                     });
                     cardList.prependItem(card)
                     formAddValidator.disableSubmitButton()
+                    popupAddForm.close()
                 })
                 .catch((err) => {
                     console.log(err);
                 })
                 .finally(() => {
                     popupAddForm.renderLoading(false);
-                    popupAddForm.close()
                 })
         }, api
     })
 
 popupAddForm.setEventListeners()
-
-// user info update
-api.getInfo()
-    .then(({name, about, avatar}) => {
-        userInfo.setUserInfo({title: name, description: about, avatar: avatar})
-    })
 
 //edit form
 const popupEditForm = new PopupWithForm('.overlay_type_edit',
@@ -132,13 +163,13 @@ const popupEditForm = new PopupWithForm('.overlay_type_edit',
                            avatar: avatar
                        }) => {
                     userInfo.setUserInfo({title: name, description: about, avatar:avatar})
+                    popupEditForm.close();
                 })
                 .catch((err) => {
                     console.log(err);
                 })
                 .finally(() => {
                     popupEditForm.renderLoading(false);
-                    popupEditForm.close();
                 })
         }, api
     });
@@ -152,15 +183,14 @@ const popupAvatar = new PopupWithForm('.overlay_avatar',
             popupAvatar.renderLoading(true);
             api.setAvatar({avatar})
                 .then(({avatar}) => {
-
                     userInfo.setUserAvatar({avatar: avatar})
+                    popupAvatar.close();
                 })
                 .catch((err) => {
                     console.log(err);
                 })
                 .finally(() => {
                     popupAvatar.renderLoading(false);
-                    popupAvatar.close();
                 })
         }, api
     })
