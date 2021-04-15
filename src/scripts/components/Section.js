@@ -13,10 +13,16 @@ export default class Section {
     addItem(element) {
         this._container.append(element)
     }
-    renderItems() {
-        this._items.forEach(item => {
-            this._renderer(item)
-        })
+    // renderItems() {
+    //     this._items.forEach(item => {
+    //         this._renderer(item)
+    //     })
+
+        renderCards(cardsData){
+            cardsData.forEach(card => {
+                this._renderer(card);
+            })
+
     // _loadCards() {
     //  this._api.getCards()
     //  .then(resp => {

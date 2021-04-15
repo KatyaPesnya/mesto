@@ -10,9 +10,9 @@ import PopupWithSubmit from '../scripts/components/PopupWithSubmit.js';
 import Api from '../scripts/components/Api.js'
 import {
     formElementEdit, formElementAdd, openButtonEdit,
-    openButtonAdd, selectors, cardsList, openButtonAvatar, ownerId
+    openButtonAdd, selectors, cardsList, openButtonAvatar
 } from '../scripts/utils/constants.js';
-
+let ownerId;
 const options = {
     url: 'https://mesto.nomoreparties.co/v1/cohort-21',
     headers: {
@@ -21,9 +21,66 @@ const options = {
 
     }
 }
-
 const api = new Api(options)
 const userInfo = new UserInfo('.profile__title', '.profile__description', '.profile__avatar', api)
+const cardList = new Section({
+        renderer: (item) => {
+            cardList.addItem(createCard(item))
+        }
+    }, cardsList,
+    api)
+
+// создание карточки
+function createCard(item) {
+    const card = new Card(item, '.card-template', {
+        handleCardClick: () => {
+            popupWithImage.open(item);
+        },
+        handleDeleteCard: (param) => {
+            popupWithSubmit.setSubmit(() => {
+                api.deleteCard(item.id)
+                    .then(({_id}) => {
+                        param.deleteElementCard()
+                        popupWithSubmit.close();
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+            })
+            popupWithSubmit.open();
+        },
+        handleLikeClick: () => {
+            api.setLike(item.id)
+                .then(({likes}) => {
+                    card.setLikeCount(item.likes.length = likes.length);
+
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        },
+        handleDeleteLikeClick: () => {
+            api.deleteLike(item.id)
+                .then(({likes}) => {
+                    card.setLikeCount(item.likes.length = likes.length);
+
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        }, api
+    });
+    return card.generateCard();
+}
+    api.getData()
+        .then(([userData, cardsData])  => {
+            ownerId = userData._id;
+            userInfo.setUserInfo(userData);
+            cardList.renderCards(createCard(cardsData));
+        })
+        .catch((err) => {
+            console.log(err);
+        })
 
 //список карточек
 // const cardList = new Section({
@@ -39,16 +96,7 @@ const userInfo = new UserInfo('.profile__title', '.profile__description', '.prof
 //         userInfo.setUserInfo({title: name, description: about, avatar: avatar})
     // })
 // user info update
-api.getData()
-    .then((data)   => {
-const [userData, cardsData] = data;
-    ownerId = userData._id;
-        userInfo.setUserInfo(userData);
-        cardsList.renderItems(cardsData);
-    })
-    .catch((err) => {
-        console.log(err);
-    })
+
 //
 // api.getInfo()
 //     .then(({name, about, avatar}) => {
@@ -61,56 +109,8 @@ const [userData, cardsData] = data;
 //                 this._renderer({title: name, image: link, owner: owner, likes: likes, id:_id})
 //
 //             });
-// создание карточки
-function createCard(item) {
 
-    const card = new Card(item, '.card-template',{
-        handleCardClick: () => {
-            popupWithImage.open(item);
-        },
-        handleDeleteCard: (param) => {
-            popupWithSubmit.setSubmit(() => {
-                api.deleteCard(item.id)
-                    .then(({_id})=>{
-                       param.deleteElementCard()
-                        popupWithSubmit.close();
-                    })
-                    .catch((err) =>{
-                        console.log(err)
-                        })
-            })
-            popupWithSubmit.open();
-        },
-        handleLikeClick: () => {
-            api.setLike(item.id)
-                .then(({likes}) => {
-                    card.setLikeCount(item.likes.length = likes.length );
 
-                })
-                .catch((err) => {
-                    console.log(err);
-                })
-        },
-        handleDeleteLikeClick: () => {
-        api.deleteLike(item.id)
-            .then(({likes}) => {
-                card.setLikeCount(item.likes.length = likes.length );
-
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-        },api
-    });
-    return card.generateCard();
-}
-const cardList = new Section({
-
-    renderer: (item) => {
-                    cardList.addItem(createCard(item))
-                }
-            }, cardsList,
-    api)
 
 
 //попап подтверждения удаления карточки
