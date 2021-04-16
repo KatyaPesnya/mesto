@@ -23,14 +23,6 @@ const options = {
 }
 const api = new Api(options)
 const userInfo = new UserInfo('.profile__title', '.profile__description', '.profile__avatar', api)
-const cardList = new Section({
-        renderer: (item) => {
-            const card = createCard(item)
-            const cardElement = card.generateCard()
-            cardList.addItem(cardElement)
-        }
-    }, cardsList,
-    api)
 // создание карточки
 function createCard(item) {
     const card = new Card(item, '.card-template', {
@@ -70,16 +62,28 @@ function createCard(item) {
         }, api
     });
     return card;
+    console.log(card)
 }
-    api.getData()
-        .then(([userData, cardsData])  => {
-            ownerId = userData._id;
-            userInfo.setUserInfo(userData);
-            cardList.renderCards(cardsData);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+
+const cardList = new Section({
+        renderer: (item) => {
+            const card = createCard(item)
+            const cardElement = card.generateCard()
+            cardList.addItem(cardElement)
+        }
+    }, cardsList,
+    api)
+api.getData()
+    .then(([userData, cardsData])  => {
+        ownerId = userData._id;
+        userInfo.setUserInfo(userData);
+        cardList.renderCards(cardsData);
+
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+
 
 //попап подтверждения удаления карточки
 const popupWithSubmit = new PopupWithSubmit('.overlay_delete-card')
