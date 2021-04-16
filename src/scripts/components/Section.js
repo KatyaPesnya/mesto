@@ -4,7 +4,6 @@ export default class Section {
         this._renderer = renderer;
         this._items= items;
         this._api = api;
-       // this._loadCards()
     }
     prependItem (element){
         this._container.prepend(element)  

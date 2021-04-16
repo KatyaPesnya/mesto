@@ -1,4 +1,4 @@
-//import {ownerId} from '../utils/constants'
+
 export default class Card {
   constructor(data, cardSelector, {handleCardClick, handleDeleteCard, handleLikeClick,handleDeleteLikeClick }, api) {
     this._title = data.title;
