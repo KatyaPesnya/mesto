@@ -5,7 +5,8 @@ export default class Card {
     this._image = data.image;
     this._likes = data.likes;
     this._id = data._id;
-    this.ownerId = data.owner._id
+    this.ownerId = data.owner._id;
+    this.owner = data.ownerId;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
     this._handleLikeClick = handleLikeClick;
@@ -37,13 +38,13 @@ export default class Card {
   }
   _checkLiked() {
     this._likes.forEach((like) => {
-      if (like._id === this.ownerId) {
+      if (like._id === this.owner) {
         this._addLikedClass();
       }
     })
   }
   _checkDeleteCard() {
-    if (this.ownerId !== this.ownerId) {
+    if (this.ownerId !== this.owner) {
       this._deleteCard()
     }
   }

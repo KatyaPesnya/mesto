@@ -13,9 +13,10 @@ export default class Section {
         this._container.append(element)
     }
 
-    renderCards(cardsData){
+    renderCards(cardsData, userData){
         cardsData.forEach(({name, link, owner, likes, _id})  => {
-            this._renderer({title: name, image: link, owner: owner, likes: likes, id:_id});
+            this._renderer({title: name, image: link, owner: owner,
+                likes: likes, id:_id, ownerId: userData._id});
         })
 
     }

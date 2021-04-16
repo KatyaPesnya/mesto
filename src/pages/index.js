@@ -25,7 +25,7 @@ const api = new Api(options)
 const userInfo = new UserInfo('.profile__title', '.profile__description', '.profile__avatar', api)
 // создание карточки
 function createCard(item) {
-    const card = new Card(item, '.card-template', {
+    const card = new Card(item,  '.card-template', {
         handleCardClick: () => {
             popupWithImage.open(item);
         },
@@ -74,9 +74,9 @@ const cardList = new Section({
     api)
 api.getData()
     .then(([userData, cardsData])  => {
-        ownerId = userData._id;
+
         userInfo.setUserInfo(userData);
-        cardList.renderCards(cardsData);
+        cardList.renderCards(cardsData, userData);
 
     })
     .catch((err) => {
@@ -135,6 +135,7 @@ const popupEditForm = new PopupWithForm('.overlay_type_edit',
                            about: about,
                            avatar: avatar
                        }) => {
+
                     userInfo.setUserInfo({title: name, description: about, avatar:avatar})
                     popupEditForm.close();
                 })
@@ -187,6 +188,7 @@ openButtonAdd.addEventListener('click', () => {
 })
 // обработчик кнопки редактирования пользователя
 openButtonEdit.addEventListener('click', () => {
+
     popupEditForm.open(userInfo.getUserInfo());
 })
 // обработчик кнопки редактирования аватара пользователя
