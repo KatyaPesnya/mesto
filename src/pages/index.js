@@ -62,7 +62,6 @@ function createCard(item) {
         }, api
     });
     return card;
-    console.log(card)
 }
 
 const cardList = new Section({
