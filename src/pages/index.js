@@ -76,7 +76,7 @@ api.getData()
     .then(([userData, cardsData])  => {
 
         userInfo.setUserInfo(userData);
-        cardList.renderCards(cardsData, userData);
+        cardList.renderCards(cardsData, userInfo);
 
     })
     .catch((err) => {
@@ -88,8 +88,10 @@ api.getData()
 const popupWithSubmit = new PopupWithSubmit('.overlay_delete-card')
 popupWithSubmit.setEventListeners()
 // добавление карточки
+debugger;
 const popupAddForm = new PopupWithForm('.overlay_type_add',
     {
+
         handleFormSubmit: ({caption, url}) => {
             popupAddForm.renderLoading(true)
             api.createCard({caption, url})
@@ -99,7 +101,8 @@ const popupAddForm = new PopupWithForm('.overlay_type_add',
                         image: link,
                         owner: owner,
                         id:_id,
-                        likes: likes
+                        likes: likes,
+                        ownerId: userInfo.userId,
                     });
 
                     const cardElement = card.generateCard();
@@ -133,10 +136,11 @@ const popupEditForm = new PopupWithForm('.overlay_type_edit',
                 .then(({
                            name: name,
                            about: about,
-                           avatar: avatar
+                           avatar: avatar,
+                           _id: _id
                        }) => {
 
-                    userInfo.setUserInfo({title: name, description: about, avatar:avatar})
+                    userInfo.setUserInfo({title: name, description: about, avatar:avatar, _id: _id})
                     popupEditForm.close();
                 })
                 .catch((err) => {
