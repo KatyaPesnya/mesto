@@ -12,7 +12,7 @@ import {
     formElementEdit, formElementAdd, openButtonEdit,
     openButtonAdd, selectors, cardsList, openButtonAvatar
 } from '../scripts/utils/constants.js';
-let ownerId;
+
 const options = {
     url: 'https://mesto.nomoreparties.co/v1/cohort-21',
     headers: {
@@ -88,7 +88,7 @@ api.getData()
 const popupWithSubmit = new PopupWithSubmit('.overlay_delete-card')
 popupWithSubmit.setEventListeners()
 // добавление карточки
-debugger;
+
 const popupAddForm = new PopupWithForm('.overlay_type_add',
     {
 
@@ -137,7 +137,7 @@ const popupEditForm = new PopupWithForm('.overlay_type_edit',
                            name: name,
                            about: about,
                            avatar: avatar,
-                           _id: _id
+                           _id: _id,
                        }) => {
 
                     userInfo.setUserInfo({title: name, description: about, avatar:avatar, _id: _id})

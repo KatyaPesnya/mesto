@@ -3,7 +3,7 @@ export default class UserInfo {
         this._title = document.querySelector(titleSelector);
         this._description = document.querySelector(descriptionSelector);
         this._avatar = document.querySelector(avatarSelector);
-        this._api = api
+        this._api = api;
     }
 
     getUserInfo() { 
@@ -19,7 +19,7 @@ export default class UserInfo {
         this._title.textContent = title; 
         this._description.textContent = description;
         this.userId = userId;
-        this.setUserAvatar({avatar})
+        this.setUserAvatar({avatar});
      } 
       }
 

@@ -38,13 +38,13 @@ export default class Card {
   }
   _checkLiked() {
     this._likes.forEach((like) => {
-      if (like._id ===  this.ownerId ) {
+      if (like._id === this.ownerId ) {
         this._addLikedClass();
       }
     })
   }
   _checkDeleteCard() {
-    if (this.ownerId !==  this.ownerId ) {
+    if (this.ownerId !== this.ownerId) {
       this._deleteCard()
     }
   }
