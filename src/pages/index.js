@@ -104,7 +104,7 @@ const popupAddForm = new PopupWithForm('.overlay_type_add',
                         likes: likes,
                         ownerId: userInfo.userId,
                     });
-
+                    debugger
                     const cardElement = card.generateCard();
                     cardList.prependItem(cardElement)
                     formAddValidator.disableSubmitButton()
