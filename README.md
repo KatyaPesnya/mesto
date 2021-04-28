@@ -10,4 +10,4 @@
 4. Адаптивная верстка.
 5. Используется JavaScript для интерактивности.
 
-### ссылка на проект: https://katyapesnya.github.io/mesto/index.html
+### ссылка на проект: https://katyapesnya.github.io/mesto/
